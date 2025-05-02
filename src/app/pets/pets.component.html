@@ -1,0 +1,67 @@
+<h2>Pet Manager</h2>
+
+<form (ngSubmit)="addPet()">
+    <label>
+      Name:
+      <input
+        type="text"
+        name="name"
+        placeholder="Enter pet name"
+        [(ngModel)]="newPet.name"
+        required />
+    </label>
+    <br /><br />
+  
+    <label>
+      Birth Date:
+      <input
+        type="date"
+        name="birthDate"
+        [(ngModel)]="newPet.birthDate"
+        required />
+    </label>
+    <br /><br />
+  
+    <label>
+      Color:
+      <input
+        type="text"
+        name="color"
+        placeholder="e.g., brown"
+        [(ngModel)]="newPet.color"
+        required />
+    </label>
+    <br /><br />
+  
+    <button type="submit">Add Pet</button>
+  </form>
+  
+
+<hr />
+
+
+<table *ngIf="allPets.length > 0" border="1" cellpadding="6">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Birth Date</th>
+      <th>Color</th>
+      <th>Remove</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let pet of allPets">
+      <td>{{ pet.name }}</td>
+      <td>{{ pet.birthDate }}</td>
+      <td>{{ pet.color }}</td>
+      <td><button (click)="removePet(pet.id)">Remove</button></td>
+    </tr>
+  </tbody>
+</table>
+
+
+<p *ngIf="allPets.length === 0">
+  <em>No pets added yet.</em>
+</p>
+
+
