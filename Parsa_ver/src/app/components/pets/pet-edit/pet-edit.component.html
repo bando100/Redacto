@@ -1,0 +1,150 @@
+<div class="container">
+  <div class="card shadow-sm my-4">
+    <div class="card-header bg-primary text-white">
+      <h2 class="mb-0"><i class="bi bi-pencil-square me-2"></i>Edit Pet</h2>
+    </div>
+    <div class="card-body">
+      <div *ngIf="loading" class="text-center p-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-2">Loading pet data...</p>
+      </div>
+
+      <div *ngIf="error" class="alert alert-danger">
+        <i class="bi bi-exclamation-triangle me-2"></i> {{ error }}
+      </div>
+
+      <form *ngIf="!loading && !error" [formGroup]="petForm" (ngSubmit)="onSubmit()">
+        <!-- Form content identical to pet-add.component.html -->
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="name" class="form-label">Pet Name <span class="text-danger">*</span></label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-tag"></i></span>
+              <input type="text" class="form-control" id="name" formControlName="name" 
+                     [class.is-invalid]="submitted && petForm.get('name')?.errors">
+            </div>
+            <div *ngIf="submitted && petForm.get('name')?.errors" class="invalid-feedback d-block">
+              <div *ngIf="petForm.get('name')?.errors?.['required']">Name is required</div>
+            </div>
+          </div>
+          
+          <div class="col-md-6 mb-3">
+            <label for="species" class="form-label">Species <span class="text-danger">*</span></label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-clipboard"></i></span>
+              <select class="form-select" id="species" formControlName="species"
+                      [class.is-invalid]="submitted && petForm.get('species')?.errors">
+                <option value="">Select species</option>
+                <option value="Dog">Dog</option>
+                <option value="Cat">Cat</option>
+                <option value="Bird">Bird</option>
+                <option value="Fish">Fish</option>
+                <option value="Hamster">Hamster</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div *ngIf="submitted && petForm.get('species')?.errors" class="invalid-feedback d-block">
+              <div *ngIf="petForm.get('species')?.errors?.['required']">Species is required</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Rest of the form fields identical to pet-add.component.html -->
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="breed" class="form-label">Breed <span class="text-danger">*</span></label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-award"></i></span>
+              <input type="text" class="form-control" id="breed" formControlName="breed"
+                     [class.is-invalid]="submitted && petForm.get('breed')?.errors">
+            </div>
+            <div *ngIf="submitted && petForm.get('breed')?.errors" class="invalid-feedback d-block">
+              <div *ngIf="petForm.get('breed')?.errors?.['required']">Breed is required</div>
+            </div>
+          </div>
+          
+          <div class="col-md-6 mb-3">
+            <label for="age" class="form-label">Age <span class="text-danger">*</span></label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-calendar3"></i></span>
+              <input type="number" class="form-control" id="age" formControlName="age"
+                     [class.is-invalid]="submitted && petForm.get('age')?.errors">
+            </div>
+            <div *ngIf="submitted && petForm.get('age')?.errors" class="invalid-feedback d-block">
+              <div *ngIf="petForm.get('age')?.errors?.['required']">Age is required</div>
+              <div *ngIf="petForm.get('age')?.errors?.['min']">Age must be at least 0</div>
+            </div>
+          </div>
+        </div>
+        
+        <h5 class="border-bottom pb-2 mt-4 mb-3">Owner Information</h5>
+        
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="ownerName" class="form-label">Owner Name <span class="text-danger">*</span></label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-person"></i></span>
+              <input type="text" class="form-control" id="ownerName" formControlName="ownerName"
+                     [class.is-invalid]="submitted && petForm.get('ownerName')?.errors">
+            </div>
+            <div *ngIf="submitted && petForm.get('ownerName')?.errors" class="invalid-feedback d-block">
+              <div *ngIf="petForm.get('ownerName')?.errors?.['required']">Owner name is required</div>
+            </div>
+          </div>
+          
+          <div class="col-md-6 mb-3">
+            <label for="ownerEmail" class="form-label">Owner Email <span class="text-danger">*</span></label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+              <input type="email" class="form-control" id="ownerEmail" formControlName="ownerEmail"
+                     [class.is-invalid]="submitted && petForm.get('ownerEmail')?.errors">
+            </div>
+            <div *ngIf="submitted && petForm.get('ownerEmail')?.errors" class="invalid-feedback d-block">
+              <div *ngIf="petForm.get('ownerEmail')?.errors?.['required']">Owner email is required</div>
+              <div *ngIf="petForm.get('ownerEmail')?.errors?.['email']">Invalid email format</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="ownerPhone" class="form-label">Owner Phone <span class="text-danger">*</span></label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+              <input type="text" class="form-control" id="ownerPhone" formControlName="ownerPhone"
+                     [class.is-invalid]="submitted && petForm.get('ownerPhone')?.errors">
+            </div>
+            <div *ngIf="submitted && petForm.get('ownerPhone')?.errors" class="invalid-feedback d-block">
+              <div *ngIf="petForm.get('ownerPhone')?.errors?.['required']">Owner phone is required</div>
+            </div>
+          </div>
+          
+          <div class="col-md-6 mb-3">
+            <label for="lastVisit" class="form-label">Last Visit</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-calendar-check"></i></span>
+              <input type="date" class="form-control" id="lastVisit" formControlName="lastVisit">
+            </div>
+          </div>
+        </div>
+        
+        <div class="mb-3">
+          <label for="notes" class="form-label">Notes</label>
+          <textarea class="form-control" id="notes" formControlName="notes" rows="3" 
+                    placeholder="Enter any additional notes about the pet..."></textarea>
+        </div>
+        
+        <div class="d-flex justify-content-end gap-2 mt-4">
+          <a routerLink="/pets" class="btn btn-secondary">
+            <i class="bi bi-x-circle me-1"></i> Cancel
+          </a>
+          <button type="submit" class="btn btn-primary">
+            <i class="bi bi-save me-1"></i> Update Pet
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

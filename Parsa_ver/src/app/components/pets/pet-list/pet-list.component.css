@@ -1,0 +1,17 @@
+.sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.sortable:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+table th, table td {
+  vertical-align: middle;
+}
+
+.badge {
+  font-size: 0.8rem;
+  padding: 0.35em 0.65em;
+}
